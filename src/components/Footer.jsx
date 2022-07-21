@@ -8,11 +8,13 @@ export const Footer = () => {
   <>
   <Navbar sticky='bottom'>
     <Breadcrumb>
-      <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
-      <Breadcrumb.Item href="https://getbootstrap.com/docs/4.0/components/breadcrumb/">
-        Library
+      <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+      <Breadcrumb.Item href="/about">
+        About
       </Breadcrumb.Item>
-      <Breadcrumb.Item active>Data</Breadcrumb.Item>
+      <Breadcrumb.Item href='/login'>Login</Breadcrumb.Item>
+      <Breadcrumb.Item href='https://github.com/ddobrose'>My Github</Breadcrumb.Item>
+      <Breadcrumb.Item href='https://www.linkedin.com/in/david-dobrose/'>LinkedIn</Breadcrumb.Item>
     </Breadcrumb>
     </Navbar>
   </>
