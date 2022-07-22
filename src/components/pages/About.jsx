@@ -1,14 +1,18 @@
 import React from 'react'
+import { Footer } from '../Footer'
+import { TopNav } from '../Navbar'
 
 export const About = () => {
   return (
     <div>
+      <TopNav/>
         <h1>ABOUT US</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem unde minus perspiciatis magnam voluptatem, accusantium consequatur praesentium incidunt nulla! Earum animi quisquam vel ipsam modi magni quis sapiente vitae exercitationem.</p>
+        <p>Just your friendly neighborhood bakery hell bent on spreading joy and celebration all over the United States and possibly Canada... maybe once we perfect our maple syrup flavored cake.</p>
 
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem labore, accusamus fugiat quam, unde illo, tempore quod a sit quas nulla at repellat officia vel quidem laboriosam ratione odit ex.</p>
+        <p>Our cake is made fresh by our friendly bakers every single day so when you get the chance just roll on in and grab something for that special occasion!</p>
 
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi accusamus vitae maiores corporis nam ipsa sit reprehenderit exercitationem fuga iure impedit, minus dolorum, eaque voluptatum soluta illo reiciendis! Quis, error.</p>
+        <p>Our mission statement straight from Davey D himself: Treat everyone.</p>
+        <Footer/>
     </div>
   )
 }

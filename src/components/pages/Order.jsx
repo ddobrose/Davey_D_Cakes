@@ -1,9 +1,9 @@
 import React from 'react'
-import { Container,Row,Col } from 'react-bootstrap'
+import { Container} from 'react-bootstrap'
 import { Footer } from '../Footer'
 import { MenuBox } from '../MenuBox'
 import { TopNav } from '../Navbar'
-import { SideBar } from '../SideBar'
+// import { SideBar } from '../SideBar'
 
 export const Order = ({flavors, sizes,decorations, clickFlavor,clickDeco, clickSize}) => {
   return (

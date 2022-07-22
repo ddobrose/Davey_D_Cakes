@@ -1,10 +1,23 @@
-import { useContext } from "react";
-import AuthContext from "../../context/AuthContext";
+// import { useContext } from "react";
+// import AuthContext from "../../context/AuthContext";
+import { Footer } from "../Footer";
+import { TopNav } from "../Navbar";
+
 
 const Login = () => {
 
 return (
+  <>
+  <section>
+    <TopNav/>
   <h1>USERS COMING SOON</h1>
+  <h6>Dont you wish you had your own DaveyDCakes Account where you could earn points and keep track of your purchases? Well hold onto your pants because its coming soon!!!</h6>
+  <Footer/>
+  </section>
+  
+  
+  </>
+  
 )
 //   const { loginUser } = useContext(AuthContext);
 //   const handleSubmit = e => {

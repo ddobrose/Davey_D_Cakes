@@ -1,8 +1,9 @@
-import React,{useState,useEffect} from 'react'
-import { MenuBox } from './MenuBox'
+import React,{useState} from 'react'
+// import { MenuBox } from './MenuBox'
+import { Link } from 'react-router-dom'
 
 
-export const OrderBox = ({flavors,sizes,decorations,flav,deco,size}) => {
+export const OrderBox = ({flavors,sizes,decorations,flav,deco,size,show,setShow}) => {
 
 
 const [decoPrice,setDecoPrice]=useState(deco? deco.cost:0)
@@ -21,6 +22,8 @@ const [formState,setFormState]= useState({
 
 })
 
+const handleShow = () => setShow(true);
+
 const handleSubmit = (e) => {
   e.preventDefault()
   const url = 'http://localhost:8000/api/order/'
@@ -35,7 +38,11 @@ const handleSubmit = (e) => {
   fetch(url, opts)
   .then(res => res.json())
   .then(data => console.log(data))
+  handleShow()
 }
+
+
+
 
 
 const onQtyChange = (e)=> {
@@ -47,7 +54,7 @@ const onQtyChange = (e)=> {
 
 const onDecoChange = (e)=> {
   e.preventDefault()
-  setFormState({...formState,[e.target.id]: deco.abbreviation})
+  setFormState({...formState,[e.target.id]: decorations[e.target.value].abbreviation})
   // setDeco(decorations[e.target.value])
   setDecoPrice(decorations[e.target.value].cost)
   
@@ -55,7 +62,7 @@ const onDecoChange = (e)=> {
 } 
 const onSizeChange = (e)=> {
   e.preventDefault()
-  setFormState({...formState,[e.target.id]: size.abbreviation})
+  setFormState({...formState,[e.target.id]: sizes[e.target.value].abbreviation})
   // setSize(sizes[e.target.value])
   setSizePrice(sizes[e.target.value].price)
   // setPrice (((decoPrice*1 + sizePrice*1) *qty).toFixed(2))  
@@ -67,6 +74,15 @@ const onChange = (e) => {
 }
 
 const price = ((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
+
+// const handleClose = () => setShow(false);
+  
+
+
+
+
+
+
 
 
 
@@ -130,7 +146,7 @@ const price = ((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
     <label className="form-label" htmlFor="price">Price</label>
     <input className="form-control" id="price" type="text" placeholder={price} disabled=""/>
   </fieldset>
-      <button type="submit" className="btn btn-primary">Submit Order</button>
+      <Link to={`/`}><button onClick={handleSubmit} type="submit" className="btn btn-primary">Submit Order</button></Link>
     </div>
 
     
@@ -152,20 +168,3 @@ const price = ((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
   )
 }
 
-// onChange={onChange()}
-// onChange={onChange()}
-
-
-{/* <option></option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>5</option>
-        <option>5</option>
-        <option>5</option>
-        <option>5</option>
-        <option>5</option> */}
-
-        // onSelect={setDecoPrice(item.cost)}
-        // onSelect={setSizePrice(item.price)}

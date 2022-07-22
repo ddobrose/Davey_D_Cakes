@@ -1,9 +1,9 @@
 // import React, { useEffect, useState } from 'react'
 // import { useParams } from 'react-router-dom'
-import { useState } from 'react'
+// import { useState } from 'react'
 import { Button,Card,Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { OrderBox } from './OrderBox'
+// import { OrderBox } from './OrderBox'
 
 
 export const MenuBox = ({flavors,sizes,decorations,clickFlavor,clickDeco,clickSize}) => {
@@ -27,7 +27,7 @@ export const MenuBox = ({flavors,sizes,decorations,clickFlavor,clickDeco,clickSi
     { flavors.map((item,index)=>{
         return(
             <Card key={index} style={{ width: '18rem' }}>
-      <Card.Img variant="top" src= 'https://www.cookingclassy.com/wp-content/uploads/2019/10/chocolate-cake-3.jpg'/>
+      <Card.Img variant="top" src= {item.picture}/>
       <Card.Body>
         <Card.Title>{item.name}</Card.Title>
         <Card.Text>
@@ -48,7 +48,7 @@ export const MenuBox = ({flavors,sizes,decorations,clickFlavor,clickDeco,clickSi
     { decorations.map((item,index)=>{
         return(
             <Card key={index} style={{ width: '18rem' }}>
-      <Card.Img  variant="top" src='https://www.cookingclassy.com/wp-content/uploads/2019/10/chocolate-cake-3.jpg' />
+      <Card.Img  variant="top" src={item.picture} />
       <Card.Body>
         <Card.Title>{item.name}</Card.Title>
         <Card.Text>
@@ -69,7 +69,7 @@ export const MenuBox = ({flavors,sizes,decorations,clickFlavor,clickDeco,clickSi
     { sizes.map((item,index)=>{
         return(
             <Card key={index} style={{ width: '18rem' }}>
-      <Card.Img variant="top" src='https://www.cookingclassy.com/wp-content/uploads/2019/10/chocolate-cake-3.jpg' />
+      <Card.Img variant="top" src={item.picture} />
       <Card.Body>
         <Card.Title>{item.name}</Card.Title>
         <Card.Text>

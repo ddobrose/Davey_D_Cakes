@@ -1,14 +1,19 @@
-import React,{useState,useEffect} from 'react'
-import { Navbar } from 'react-bootstrap'
+// import React,{useState,useEffect} from 'react'
+// import { Navbar } from 'react-bootstrap'
 import { Footer } from '../Footer'
 import { HeroBanner } from '../HeroBanner'
 import { TopNav } from '../Navbar'
+// import { ThanksModal } from '../ThanksModal'
 
 
 
-export const Home = ({flavors, sizes, decorations}) => {
+export const Home = ({flavors, sizes, decorations,show,setShow}) => {
   return (
     <>
+
+    
+
+    
     
     <TopNav/>
     <HeroBanner title={"Order"} heading={'Browse our cakes'} paragraph={'Order any one of our 11 flavors today and make it a celebration to remember!'} goto={"Shop"} link={'/menu'}/>
