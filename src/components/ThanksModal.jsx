@@ -21,7 +21,7 @@ export const ThanksModal = ({setShow,show}) => {
         </Modal.Header>
         <Modal.Body>We appreciate your purchase! Every penny you spend contributes to our plan for world domination! (of the cake industry)</Modal.Body>
         <Modal.Footer>
-        <Link to={'/'}><Button variant="secondary" onClick={handleClose}>Close</Button></Link>
+        <Link to={'/cart'}><Button variant="secondary" onClick={handleClose}>Close</Button></Link>
           {/* <Button variant="primary" onClick={handleClose}>
             Save Changes
           </Button> */}

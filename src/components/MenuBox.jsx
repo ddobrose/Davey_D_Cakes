@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 // import { OrderBox } from './OrderBox'
 
 
-export const MenuBox = ({flavors,sizes,decorations,clickFlavor,clickDeco,clickSize}) => {
+export const MenuBox = ({flavors,sizes,decorations,clickFlavor,clickDeco,clickSize,choice,setChoice,setQty,qty,setDecoPrice,decoPrice,sizePrice,setSizePrice}) => {
 
  
 
@@ -33,7 +33,7 @@ export const MenuBox = ({flavors,sizes,decorations,clickFlavor,clickDeco,clickSi
         <Card.Text>
         {item.description}
         </Card.Text>
-        <Link to={`/menu/${index}`}><Button  onClick={()=> clickFlavor(item)} variant="primary">SHOP</Button></Link>
+        <Link to={`/menu/${index}`}><Button id='flavor'  onClick={()=> clickFlavor(item,index)} variant="primary">SHOP</Button></Link>
       </Card.Body>
     </Card>
         )
@@ -54,7 +54,7 @@ export const MenuBox = ({flavors,sizes,decorations,clickFlavor,clickDeco,clickSi
         <Card.Text>
         {item.description}
         </Card.Text>
-        <Link to={`/menu/${index}`}><Button  onClick={()=> clickDeco(item)} variant="primary">SHOP</Button></Link>
+        <Link to={`/menu/${index}`}><Button id='decoration'  onClick={()=> clickDeco(item,index)} variant="primary">SHOP</Button></Link>
       </Card.Body>
     </Card>
         )
@@ -75,7 +75,7 @@ export const MenuBox = ({flavors,sizes,decorations,clickFlavor,clickDeco,clickSi
         <Card.Text>
         {item.description}
         </Card.Text>
-        <Link to={`/menu/${index}`}><Button  onClick={()=> clickSize(item)} variant="primary">{item.price}</Button></Link>
+        <Link to={`/menu/${index}`}><Button id='size'  onClick={()=> clickSize(item,index)} variant="primary">{item.price}</Button></Link>
       </Card.Body>
     </Card>
         )

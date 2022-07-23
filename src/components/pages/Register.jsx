@@ -1,5 +1,7 @@
 import { useState, useContext } from "react";
 import AuthContext from "../../context/AuthContext";
+import { Footer } from "../Footer";
+import { TopNav } from "../Navbar";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -14,11 +16,12 @@ function Register() {
 
   return (
     <section>
+      <TopNav/>
       <form onSubmit={handleSubmit}>
         <h1>Register</h1>
         <hr />
-        <div>
-          <label htmlFor="username">Username</label>
+        <div className="form-group">
+          <label className="form-label mt-4" htmlFor="username">Username</label>
           <input
             type="text"
             id="username"
@@ -50,6 +53,7 @@ function Register() {
         </div>
         <button>Register</button>
       </form>
+      <Footer/>
     </section>
   );
 }

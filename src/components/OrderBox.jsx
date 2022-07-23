@@ -1,26 +1,17 @@
 import React,{useState} from 'react'
 // import { MenuBox } from './MenuBox'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 
-export const OrderBox = ({flavors,sizes,decorations,flav,deco,size,show,setShow}) => {
+export const OrderBox = ({setDeco, setSize,flavors,sizes,decorations,flav,deco,size,show,setShow,choice,formState,setFormState}) => {
 
 
 const [decoPrice,setDecoPrice]=useState(deco? deco.cost:0)
 const [sizePrice, setSizePrice] = useState(size?size.price:12.99)
 const [qty, setQty] = useState(1)
-// const [price,setPrice] = useState(((decoPrice*1 + sizePrice*1) *qty).toFixed(2))
-const [formState,setFormState]= useState({
-  flavor:flav? flav.abbreviation : "VAN",
-  frosting_level:'NOR',
-  decoration:deco? deco.abbreviation : "NO",
-  message_card:"",
-  size:size.name? size.abbreviation:'DOZ',
-  qty:1,
-  cart:2
-  
 
-})
+// const [price,setPrice] = useState(((decoPrice*1 + sizePrice*1) *qty).toFixed(2))
+
 
 const handleShow = () => setShow(true);
 
@@ -38,6 +29,18 @@ const handleSubmit = (e) => {
   fetch(url, opts)
   .then(res => res.json())
   .then(data => console.log(data))
+  setFormState({
+    flavor:flav? flav.name : "Very Vanilla",
+    frosting_level:'Normal',
+    decoration:deco? deco.name : "None",
+    message_card:"",
+    size:size.name? size.name:'Dozen Cupcakes',
+    qty:1,
+    cart:2
+    
+  
+  })
+  
   handleShow()
 }
 
@@ -54,16 +57,15 @@ const onQtyChange = (e)=> {
 
 const onDecoChange = (e)=> {
   e.preventDefault()
-  setFormState({...formState,[e.target.id]: decorations[e.target.value].abbreviation})
-  // setDeco(decorations[e.target.value])
+  setFormState({...formState,[e.target.id]: decorations[e.target.value].name})
+  setDeco(decorations[e.target.value])
   setDecoPrice(decorations[e.target.value].cost)
-  
-  
-} 
-const onSizeChange = (e)=> {
+  } 
+
+  const onSizeChange = (e)=> {
   e.preventDefault()
-  setFormState({...formState,[e.target.id]: sizes[e.target.value].abbreviation})
-  // setSize(sizes[e.target.value])
+  setFormState({...formState,[e.target.id]: sizes[e.target.value].name})
+  setSize(sizes[e.target.value])
   setSizePrice(sizes[e.target.value].price)
   // setPrice (((decoPrice*1 + sizePrice*1) *qty).toFixed(2))  
 } 
@@ -73,9 +75,11 @@ const onChange = (e) => {
   setFormState({...formState,[e.target.id]: e.target.value})
 }
 
-const price = ((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
+
 
 // const handleClose = () => setShow(false);
+
+const price = ((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
   
 
 
@@ -97,20 +101,20 @@ const price = ((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
     <form onSubmit={handleSubmit}>
     <div className="form-group">
       <label htmlFor="flavor" className="form-label mt-4">Pick a Flavor</label>
-      <select onChange={onChange} defaultValue={flav.abbreviation} className="form-select" id="flavor">
+      <select onChange={onChange} defaultValue={flav? flav.name:"Very Vanilla"} className="form-select" id="flavor">
         {flavors.map((item)=>
-        <option value={item.abbreviation}>{item.name}</option>)}
+        <option value={item.name}>{item.name}</option>)}
         
       </select>
       <label htmlFor="decoration" className="form-label mt-4">Pick a Deco</label>
-      <select onChange={onDecoChange} defaultValue={deco? deco.index:0}  className="form-select" id="decoration">
+      <select onChange={onDecoChange} defaultValue={deco? choice:0}  className="form-select" id="decoration">
         {decorations.map((item,index)=>
         <option  value={index}>{item.name} +({item.cost}$) </option>)}
         
       </select>
 
       <label htmlFor="size" className="form-label mt-4">Pick a Size</label>
-      <select onChange={onSizeChange} defaultValue={sizes[0].price}  className="form-select" id="size">
+      <select onChange={onSizeChange} defaultValue={size? choice:0}  className="form-select" id="size">
         {sizes.map((item,index)=>
         <option  value={index}>{item.name} +({item.price})</option>)}
         
@@ -130,13 +134,15 @@ const price = ((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
         <option value={10}>10</option>
         </select>
 
+       
+
 
   <label htmlFor="frosting_level" className="form-label mt-4">Frosting</label>
       <select onChange={onChange}  defaultValue={'Normal'} className="form-select" id="frosting_level">
-        <option value={'NOR'}>Normal</option>
-        <option value={'EXT'}>Extra</option>
-        <option value={'DRI'}>Drizzle</option>
-        <option value={'NO'}>None</option>
+        <option value={'Normal'}>Normal</option>
+        <option value={'Extra'}>Extra</option>
+        <option value={'Drizzle'}>Drizzle</option>
+        <option value={'None'}>None</option>
         
       </select>
 
@@ -146,7 +152,7 @@ const price = ((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
     <label className="form-label" htmlFor="price">Price</label>
     <input className="form-control" id="price" type="text" placeholder={price} disabled=""/>
   </fieldset>
-      <Link to={`/`}><button onClick={handleSubmit} type="submit" className="btn btn-primary">Submit Order</button></Link>
+      <button onClick={handleSubmit} type="submit" className="btn btn-primary">Submit Order</button>
     </div>
 
     

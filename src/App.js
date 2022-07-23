@@ -7,7 +7,7 @@ import { Order } from './components/pages/Order';
 // import PrivateRoute from './utils/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
 import Login from './components/pages/Login';
-// import Register from './components/pages/Register';
+import Register from './components/pages/Register';
 // import ProtectedPage from './utils/ProtectedPage';
 import { Rewards } from './components/pages/Rewards';
 import { About } from './components/pages/About';
@@ -16,6 +16,7 @@ import { Find } from './components/pages/Find';
 // import { Container } from 'react-bootstrap';
 import { OrderForm } from './components/pages/OrderForm';
 import { useState } from 'react';
+import { Cart } from './components/pages/Cart';
 
 
 
@@ -54,25 +55,42 @@ const sizes = [
 // const [choice, setChoice] = useState([])
 const [flav,setFlav] = useState('')
 const [deco, setDeco] = useState('')
-const [size,setSize] = useState(sizes[0])
+const [size,setSize] = useState('')
+const [choice,setChoice] = useState()
 
 const [show,setShow] = useState(false)
 
+const [formState,setFormState]= useState({
+  flavor:flav? flav.name : "Very Vanilla",
+  frosting_level:'Normal',
+  decoration:deco? deco.name : "None",
+  message_card:"",
+  size:size.name? size.name:'Dozen Cupcakes',
+  qty:1,
+  cart:2,
+  price:0
+  
+
+})
 
 
 
 
 
-function clickFlavor(item) {
-  // setChoice(0);
+
+function clickFlavor(item,index) {
+  setChoice(index);
+  setFormState({...formState, "flavor": flavors[index].name})
    setFlav(item)
 }
-function clickDeco(item) {
-  // setChoice(1);
+function clickDeco(item,index) {
+  setChoice(index);
+  setFormState({...formState, "decoration": decorations[index].name})
    setDeco(item)
 }
-function clickSize(item) {
-  // setChoice(2);
+function clickSize(item,index) {
+  setChoice(index);
+  setFormState({...formState, "size": sizes[index].name})
    setSize(item)
 }
   return (
@@ -91,13 +109,14 @@ function clickSize(item) {
     <Route path='/' element={<Home setShow={setShow} show={show} flavors={flavors} sizes={sizes} decorations={decorations}/>}/>
     <Route path='/menu' element={<Order clickFlavor={clickFlavor} clickDeco={clickDeco} clickSize={clickSize}  flavors={flavors} sizes={sizes} decorations={decorations}/>}/>
     {/* <Route path='/login' element={<Login/>}/> */}
-    {/* <Route path='/register' element={<Register/>}/> */}
+    <Route path='/register' element={<Register/>}/>
     {/* <PrivateRoute element={<ProtectedPage/>} path="/protected" /> */}
     <Route path='/rewards' element={<Rewards/>}/>
     <Route path='/about' element={<About/>}/>
     <Route path='/find' element={<Find/>}/>
     <Route path='/login' element={<Login/>}/>
-    <Route path='/menu/:id' element={<OrderForm show={show} setShow={setShow} setSize={setSize} setDeco={setDeco} setFlav={setFlav} flav={flav} deco={deco} size={size}  flavors={flavors} sizes={sizes} decorations={decorations} />}/>
+    <Route path='/menu/:id' element={<OrderForm choice={choice} formState={formState} setFormState={setFormState} show={show} setShow={setShow} setSize={setSize} setDeco={setDeco} setFlav={setFlav} flav={flav} deco={deco} size={size}  flavors={flavors} sizes={sizes} decorations={decorations} />}/>
+    <Route path='/cart' element={<Cart formState={formState} setFormState={setFormState} show={show} setShow={setShow} setSize={setSize} setDeco={setDeco} setFlav={setFlav} flav={flav} deco={deco} size={size}  flavors={flavors} sizes={sizes} decorations={decorations} />}/>
 
     
     
