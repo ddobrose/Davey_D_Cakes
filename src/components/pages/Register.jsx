@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import { Footer } from "../Footer";
 import { TopNav } from "../Navbar";
@@ -51,7 +52,7 @@ function Register() {
           />
           <p>{password2 !== password ? "Passwords do not match" : ""}</p>
         </div>
-        <button>Register</button>
+       <Link to={'/testregister'}><button>Register</button></Link>
       </form>
       <Footer/>
     </section>

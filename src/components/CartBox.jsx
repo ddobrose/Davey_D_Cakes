@@ -6,6 +6,14 @@ export const CartBox = (flavors,sizes,decorations) => {
 
     const [cart,setCart] = useState(null)
 
+    const handleDeleteOrder = (index) => {
+      // e.preventDefault()
+      let order = cart[index].id
+      fetch(`http://localhost:8000/api/order/${order}/`,{method:'DELETE'})
+      
+      
+    }
+
 
     useEffect(() => {
         fetch('http://localhost:8000/api/cartorders/2/')
@@ -43,9 +51,10 @@ export const CartBox = (flavors,sizes,decorations) => {
             <p>Quantity:<span>{item.qty}</span></p>
             <p>Frosting:<span>{item.frosting_level}</span></p>
             <p>Message Card:<span>{item.message_card}</span></p>
+            <p>Price: $3.07</p>
             
             </Card.Text>
-            <Link to={`/menu/${index}`}><Button variant="primary">SHOP</Button></Link>
+            <Button onClick={handleDeleteOrder(index)} variant="primary">Delete</Button>
           </Card.Body>
         </Card>
             )

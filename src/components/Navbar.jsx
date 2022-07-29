@@ -1,47 +1,49 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import AuthContext from '../context/AuthContext'
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 
 export const TopNav = () => {
+  const {user,logoutUser} = useContext(AuthContext)
   return (
     <>
-   <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div className="container-fluid">
-    <a className="navbar-brand" href="/"><img src="/images/daveydcakes.png" alt="Logo" /></a>
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="/navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
 
-    <div className="collapse navbar-collapse" id="navbarColor01">
-      <ul className="navbar-nav me-auto">
-        <li className="nav-item">
-          <a className="nav-link active" href="/menu">Menu
-            <span className="visually-hidden">(current)</span>
-          </a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="/rewards">Rewards</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="/about">About</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="/find">Find Store</a>
-        </li>
-        <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="/login" role="button" aria-haspopup="true" aria-expanded="false">Sign In</a>
-          <div className="dropdown-menu">
-            <a className="dropdown-item" href="/">Action</a>
-            <a className="dropdown-item" href="/">Another action</a>
-            <a className="dropdown-item" href="/">Something else here</a>
-            <div className="dropdown-divider"></div>
-            <a className="dropdown-item" href="/">Separated link</a>
-          </div>
-        </li>
-      </ul>
-      
-    </div>
-  </div>
-</nav>
+<Navbar variant="dark" bg="dark" expand="lg">
+      <Container fluid>
+        <Navbar.Brand href='/'><img src="/images/daveydcakes.png" alt="Logo" /></Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbar-dark-example" />
+        <Navbar.Collapse id="navbar-dark-example">
+          <Nav className='.mr-auto'>
+          
+            <Nav.Link href="/menu">Menu</Nav.Link>
+            <Nav.Link href="/rewards">Rewards</Nav.Link>
+            <Nav.Link href="/about">About</Nav.Link>
+            <Nav.Link href="/find">Find Store</Nav.Link>
+          
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title={user? `Hello, ${user.username}`: 'Sign In'}
+              menuVariant="dark"
+            >
+              <NavDropdown.Item href="/login">{user? "Log Out" : "Log in"}</NavDropdown.Item>
+              <NavDropdown.Item href="/register">
+                Sign Up
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3"></NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/">
+                Previous Orders
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+ 
+
     
     </>
   )

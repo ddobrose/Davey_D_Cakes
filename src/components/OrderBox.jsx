@@ -15,7 +15,7 @@ const [qty, setQty] = useState(1)
 
 const handleShow = () => setShow(true);
 
-const handleSubmit = (e) => {
+const handleOrderSubmit = (e) => {
   e.preventDefault()
   const url = 'http://localhost:8000/api/order/'
   const opts = {
@@ -98,7 +98,7 @@ const price = ((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
 
   return (
     <>
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleOrderSubmit}>
     <div className="form-group">
       <label htmlFor="flavor" className="form-label mt-4">Pick a Flavor</label>
       <select onChange={onChange} defaultValue={flav? flav.name:"Very Vanilla"} className="form-select" id="flavor">
@@ -152,7 +152,7 @@ const price = ((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
     <label className="form-label" htmlFor="price">Price</label>
     <input className="form-control" id="price" type="text" placeholder={price} disabled=""/>
   </fieldset>
-      <button onClick={handleSubmit} type="submit" className="btn btn-primary">Submit Order</button>
+      <button onClick={handleOrderSubmit} type="submit" className="btn btn-primary">Submit Order</button>
     </div>
 
     

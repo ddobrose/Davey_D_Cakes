@@ -17,6 +17,7 @@ import { Find } from './components/pages/Find';
 import { OrderForm } from './components/pages/OrderForm';
 import { useState } from 'react';
 import { Cart } from './components/pages/Cart';
+import { TestRegister } from './components/pages/TestRegister';
 
 
 
@@ -73,6 +74,10 @@ const [formState,setFormState]= useState({
 
 })
 
+const [guestForm,setGuestForm] = useState({})
+
+
+
 
 
 
@@ -117,6 +122,7 @@ function clickSize(item,index) {
     <Route path='/login' element={<Login/>}/>
     <Route path='/menu/:id' element={<OrderForm choice={choice} formState={formState} setFormState={setFormState} show={show} setShow={setShow} setSize={setSize} setDeco={setDeco} setFlav={setFlav} flav={flav} deco={deco} size={size}  flavors={flavors} sizes={sizes} decorations={decorations} />}/>
     <Route path='/cart' element={<Cart formState={formState} setFormState={setFormState} show={show} setShow={setShow} setSize={setSize} setDeco={setDeco} setFlav={setFlav} flav={flav} deco={deco} size={size}  flavors={flavors} sizes={sizes} decorations={decorations} />}/>
+    <Route path='/testregister' element={<TestRegister guestForm={guestForm} setGuestForm={setGuestForm} flavors={flavors}/>}/>
 
     
     
