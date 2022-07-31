@@ -2,31 +2,38 @@ import React,{useEffect,useState} from 'react'
 import { Link } from 'react-router-dom'
 import { Container,Card,Button } from 'react-bootstrap'
 
-export const CartBox = (flavors,sizes,decorations) => {
+export const CartBox = ({flavors,sizes,decorations,cart,setCart,setCartPrice,cartPrice,submitCart}) => {
 
-    const [cart,setCart] = useState(null)
+  
 
-    const handleDeleteOrder = (index) => {
-      // e.preventDefault()
-      let order = cart[index].id
-      fetch(`http://localhost:8000/api/order/${order}/`,{method:'DELETE'})
+    
+    const [cartOrders,setCartOrders] = useState(null)
+    // const [cartPrice,setCartPrice] = useState(0)
+
+    // const handleDeleteOrder = (index) => {
+    //   // e.preventDefault()
+    //   fetch(`http://localhost:8000/api/order/${order}/`,{method:'DELETE'})
       
       
-    }
+    // }
 
-
+    const param = cart? cart.id : 0
+    console.log(cart)
     useEffect(() => {
-        fetch('http://localhost:8000/api/cartorders/2/')
+      cart &&
+        fetch(`http://localhost:8000/ddcakes/cartorders/${param}`)
           .then(res => res.json())
           .then(data => {
             console.log(data)
-            setCart(data)
+            setCartOrders(data)
           })
-      }, []) 
+      }, [cart]) 
+
+  
   
   
       
-    if(!cart){
+    if(!cartOrders){
         return(<h1>LOADING</h1>)
     }else {return (
     <>
@@ -39,7 +46,7 @@ export const CartBox = (flavors,sizes,decorations) => {
     
         <Container className='row row-cols-3 row-cols-md-2 g-4 gap-3 border border-3 mt-3 justify-content-sm-between' fluid>
         
-        { cart.map((item,index)=>{
+        { cartOrders.map((item,index)=>{
             return(
                 <Card key={index} style={{ width: '18rem' }}>
           {/* <Card.Img variant="top" src= {flavors[0].picture}/> */}
@@ -51,16 +58,18 @@ export const CartBox = (flavors,sizes,decorations) => {
             <p>Quantity:<span>{item.qty}</span></p>
             <p>Frosting:<span>{item.frosting_level}</span></p>
             <p>Message Card:<span>{item.message_card}</span></p>
-            <p>Price: $3.07</p>
+            <p>Price: ${item.price}</p>
             
             </Card.Text>
-            <Button onClick={handleDeleteOrder(index)} variant="primary">Delete</Button>
+            <Button  variant="primary">Delete</Button>
           </Card.Body>
         </Card>
             )
         })}
     
     </Container>
+    <h5>Cart Price:${cartPrice} </h5>
+    <button onClick={()=>submitCart()}>Submit Cart</button>
 
 
     </>

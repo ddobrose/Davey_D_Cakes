@@ -28,11 +28,11 @@ export const TopNav = () => {
               title={user? `Hello, ${user.username}`: 'Sign In'}
               menuVariant="dark"
             >
-              <NavDropdown.Item href="/login">{user? "Log Out" : "Log in"}</NavDropdown.Item>
+              <NavDropdown.Item onClick={logoutUser} href="/login">{user? "Log Out" : "Log in"}</NavDropdown.Item>
               <NavDropdown.Item href="/register">
                 Sign Up
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3"></NavDropdown.Item>
+              <NavDropdown.Item href="/testregister">Edit Profile</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/">
                 Previous Orders

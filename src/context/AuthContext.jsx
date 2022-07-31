@@ -62,6 +62,7 @@ export const AuthProvider = ({children}) => {
             })
         });
         if(response.status === 201) {
+            console.log(response)
             history('/login');
         }else {
             alert('Something went wrong');

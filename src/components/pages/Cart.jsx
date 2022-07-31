@@ -6,7 +6,7 @@ import { TopNav } from '../Navbar'
 // import { SideBar } from '../SideBar'
 import { CartBox } from '../CartBox'
 
-export const Cart = ({flavors, sizes,decorations, clickFlavor,clickDeco, clickSize}) => {
+export const Cart = ({flavors, sizes,decorations, clickFlavor,clickDeco, clickSize,cart,setCart,cartPrice,setCartPrice,submitCart}) => {
   return (
 
     
@@ -15,10 +15,11 @@ export const Cart = ({flavors, sizes,decorations, clickFlavor,clickDeco, clickSi
     <section >
     <TopNav/>
     <Container className='mt-4 '>
-    <CartBox clickFlavor={clickFlavor} clickDeco={clickDeco} clickSize={clickSize}  flavors={flavors} sizes={sizes} decorations={decorations}/>
+    <CartBox submitCart={submitCart} cartPrice={cartPrice} setCartPrice={setCartPrice} cart={cart} setCart={setCart} clickFlavor={clickFlavor} clickDeco={clickDeco} clickSize={clickSize}  flavors={flavors} sizes={sizes} decorations={decorations}/>
     
       
     </Container>
+    
       
       <Footer/>
     </section>

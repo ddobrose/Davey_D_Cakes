@@ -52,7 +52,7 @@ function Register() {
           />
           <p>{password2 !== password ? "Passwords do not match" : ""}</p>
         </div>
-       <Link to={'/testregister'}><button>Register</button></Link>
+       <Link to={'/testregister'}><button onClick={handleSubmit}>Register</button></Link>
       </form>
       <Footer/>
     </section>

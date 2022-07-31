@@ -1,23 +1,45 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 // import { MenuBox } from './MenuBox'
 // import { Link } from 'react-router-dom'
 
 
-export const OrderBox = ({setDeco, setSize,flavors,sizes,decorations,flav,deco,size,show,setShow,choice,formState,setFormState}) => {
+export const OrderBox = ({cartOptions, cart,setCart,setChoice, setDeco,setFlav, setSize,flavors,sizes,decorations,flav,deco,size,show,setShow,choice,formState,setFormState,cartPrice,setCartPrice}) => {
 
 
 const [decoPrice,setDecoPrice]=useState(deco? deco.cost:0)
 const [sizePrice, setSizePrice] = useState(size?size.price:12.99)
 const [qty, setQty] = useState(1)
 
-// const [price,setPrice] = useState(((decoPrice*1 + sizePrice*1) *qty).toFixed(2))
+const [price,setPrice] = useState(((decoPrice*1 + sizePrice*1) *qty).toFixed(2))
 
+
+useEffect(()=>{
+  setPrice(((decoPrice*1 + sizePrice*1) *qty).toFixed(2))
+},[decoPrice,sizePrice,qty])
+useEffect(()=>{
+  setFormState({...formState,"price":Number(price)})
+},[price])
+
+const addToCart = () => {
+  const url = `http://localhost:8000/ddcakes/cart/${cart? cart.id:0}/`
+  const opts = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      
+    },
+    body: JSON.stringify({...cartOptions, "price": Number(cartPrice) + Number(price)})
+  }
+  fetch(url, opts)
+  .then(res => res.json())
+  .then(data => {console.log(data);setCart(data)})
+}
 
 const handleShow = () => setShow(true);
 
 const handleOrderSubmit = (e) => {
   e.preventDefault()
-  const url = 'http://localhost:8000/api/order/'
+  const url = 'http://localhost:8000/ddcakes/order/'
   const opts = {
     method: 'POST',
     headers: {
@@ -25,6 +47,7 @@ const handleOrderSubmit = (e) => {
       // 'Authorization': `Bearer ${accessToken}`
     },
     body: JSON.stringify(formState)
+    
   }
   fetch(url, opts)
   .then(res => res.json())
@@ -36,11 +59,16 @@ const handleOrderSubmit = (e) => {
     message_card:"",
     size:size.name? size.name:'Dozen Cupcakes',
     qty:1,
-    cart:2
-    
-  
-  })
-  
+    cart:cart.id,
+    price:12.99
+    })
+    setCartPrice(Number(cartPrice) + Number(price))
+    addToCart()
+    setDeco('')
+    setFlav('')
+    setSize('')
+    setChoice()
+    // setPrice(12.99)
   handleShow()
 }
 
@@ -52,6 +80,7 @@ const onQtyChange = (e)=> {
   e.preventDefault()
   setFormState({...formState,[e.target.id]: e.target.value})
   setQty(e.target.value)
+  // setPrice((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
   // setPrice () 
 } 
 
@@ -60,6 +89,8 @@ const onDecoChange = (e)=> {
   setFormState({...formState,[e.target.id]: decorations[e.target.value].name})
   setDeco(decorations[e.target.value])
   setDecoPrice(decorations[e.target.value].cost)
+  // setPrice((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
+  // setFormState({...formState,"price":price})
   } 
 
   const onSizeChange = (e)=> {
@@ -67,7 +98,8 @@ const onDecoChange = (e)=> {
   setFormState({...formState,[e.target.id]: sizes[e.target.value].name})
   setSize(sizes[e.target.value])
   setSizePrice(sizes[e.target.value].price)
-  // setPrice (((decoPrice*1 + sizePrice*1) *qty).toFixed(2))  
+  // setPrice((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
+  // setFormState({...formState,"price":price})
 } 
 
 const onChange = (e) => {
@@ -79,7 +111,7 @@ const onChange = (e) => {
 
 // const handleClose = () => setShow(false);
 
-const price = ((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
+// const price = ((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
   
 
 
@@ -98,7 +130,7 @@ const price = ((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
 
   return (
     <>
-    <form onSubmit={handleOrderSubmit}>
+    <form >
     <div className="form-group">
       <label htmlFor="flavor" className="form-label mt-4">Pick a Flavor</label>
       <select onChange={onChange} defaultValue={flav? flav.name:"Very Vanilla"} className="form-select" id="flavor">
