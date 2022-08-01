@@ -34,7 +34,7 @@ export const TopNav = () => {
               </NavDropdown.Item>
               <NavDropdown.Item href="/testregister">Edit Profile</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/">
+              <NavDropdown.Item href="/orderhistory">
                 Previous Orders
               </NavDropdown.Item>
             </NavDropdown>

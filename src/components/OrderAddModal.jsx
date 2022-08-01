@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 
 
-export const ThanksModal = ({setShow,show}) => {
+export const OrderAddModal = ({setShow,show}) => {
  
   
 
@@ -17,11 +17,11 @@ export const ThanksModal = ({setShow,show}) => {
 
       <Modal show={show} onHide={handleShow}>
         <Modal.Header closeButton>
-          <Modal.Title>Thank you!</Modal.Title>
+          <Modal.Title>Order Added to Cart!</Modal.Title>
         </Modal.Header>
-        <Modal.Body>We appreciate your purchase! Every penny you spend contributes to our plan for world domination! (of the cake industry). You should see your order confirmation in your email soon!</Modal.Body>
+        <Modal.Body>Your order has been successfully added to your cart.</Modal.Body>
         <Modal.Footer>
-        <Link to={'/'}><Button variant="secondary" onClick={handleClose}>Close</Button></Link>
+        <Link to={'/cart'}><Button variant="secondary" onClick={handleClose}>To Cart</Button></Link>
           {/* <Button variant="primary" onClick={handleClose}>
             Save Changes
           </Button> */}
@@ -31,5 +31,3 @@ export const ThanksModal = ({setShow,show}) => {
   );
 }
   
-
-

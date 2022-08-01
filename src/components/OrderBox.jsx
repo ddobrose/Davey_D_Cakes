@@ -3,22 +3,11 @@ import React,{useEffect, useState} from 'react'
 // import { Link } from 'react-router-dom'
 
 
-export const OrderBox = ({cartOptions, cart,setCart,setChoice, setDeco,setFlav, setSize,flavors,sizes,decorations,flav,deco,size,show,setShow,choice,formState,setFormState,cartPrice,setCartPrice}) => {
+export const OrderBox = ({setQty, qty, price, setPrice, setSizePrice, setDecoPrice, sizePrice, decoPrice, setShow, show,cartOptions, cart,setCart,setChoice, setDeco,setFlav, setSize,flavors,sizes,decorations,flav,deco,size,choice,formState,setFormState,cartPrice,setCartPrice}) => {
 
 
-const [decoPrice,setDecoPrice]=useState(deco? deco.cost:0)
-const [sizePrice, setSizePrice] = useState(size?size.price:12.99)
-const [qty, setQty] = useState(1)
-
-const [price,setPrice] = useState(((decoPrice*1 + sizePrice*1) *qty).toFixed(2))
 
 
-useEffect(()=>{
-  setPrice(((decoPrice*1 + sizePrice*1) *qty).toFixed(2))
-},[decoPrice,sizePrice,qty])
-useEffect(()=>{
-  setFormState({...formState,"price":Number(price)})
-},[price])
 
 const addToCart = () => {
   const url = `http://localhost:8000/ddcakes/cart/${cart? cart.id:0}/`
@@ -28,14 +17,16 @@ const addToCart = () => {
       'Content-Type': 'application/json',
       
     },
-    body: JSON.stringify({...cartOptions, "price": Number(cartPrice) + Number(price)})
+    body: JSON.stringify({...cartOptions, "price": (Number(cartPrice) + Number(price)).toFixed(2)})
   }
   fetch(url, opts)
   .then(res => res.json())
   .then(data => {console.log(data);setCart(data)})
 }
 
-const handleShow = () => setShow(true);
+
+
+// const handleShow = () => setOrderAddShow(true);
 
 const handleOrderSubmit = (e) => {
   e.preventDefault()
@@ -62,14 +53,16 @@ const handleOrderSubmit = (e) => {
     cart:cart.id,
     price:12.99
     })
-    setCartPrice(Number(cartPrice) + Number(price))
+    setCartPrice((Number(cartPrice) + Number(price)).toFixed(2))
     addToCart()
     setDeco('')
     setFlav('')
     setSize('')
+    setDecoPrice(0)
+    setSizePrice(12.99)
     setChoice()
     // setPrice(12.99)
-  handleShow()
+  setShow(true)
 }
 
 
@@ -88,7 +81,7 @@ const onDecoChange = (e)=> {
   e.preventDefault()
   setFormState({...formState,[e.target.id]: decorations[e.target.value].name})
   setDeco(decorations[e.target.value])
-  setDecoPrice(decorations[e.target.value].cost)
+  setDecoPrice(decorations[e.target.value].price)
   // setPrice((decoPrice*1 + sizePrice*1) *qty).toFixed(2)
   // setFormState({...formState,"price":price})
   } 
@@ -106,6 +99,10 @@ const onChange = (e) => {
   e.preventDefault()
   setFormState({...formState,[e.target.id]: e.target.value})
 }
+
+useEffect(()=>{
+  setFormState({...formState, "price": price})
+},[])
 
 
 
@@ -141,7 +138,7 @@ const onChange = (e) => {
       <label htmlFor="decoration" className="form-label mt-4">Pick a Deco</label>
       <select onChange={onDecoChange} defaultValue={deco? choice:0}  className="form-select" id="decoration">
         {decorations.map((item,index)=>
-        <option  value={index}>{item.name} +({item.cost}$) </option>)}
+        <option  value={index}>{item.name} +({item.price}$) </option>)}
         
       </select>
 
@@ -182,7 +179,7 @@ const onChange = (e) => {
       <textarea onChange={onChange}  className="form-control" id="message_card" rows="3"></textarea>
       <fieldset disabled="">
     <label className="form-label" htmlFor="price">Price</label>
-    <input className="form-control" id="price" type="text" placeholder={price} disabled=""/>
+    <input className="form-control" id="price" type="text" placeholder={price && price} disabled="true"/>
   </fieldset>
       <button onClick={handleOrderSubmit} type="submit" className="btn btn-primary">Submit Order</button>
     </div>

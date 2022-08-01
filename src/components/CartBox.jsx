@@ -1,8 +1,10 @@
 import React,{useEffect,useState} from 'react'
 import { Link } from 'react-router-dom'
 import { Container,Card,Button } from 'react-bootstrap'
+import { send } from '@emailjs/browser'
 
-export const CartBox = ({flavors,sizes,decorations,cart,setCart,setCartPrice,cartPrice,submitCart}) => {
+
+export const CartBox = ({guest, show,setShow,cartOptions,flavors,sizes,decorations,cart,setCart,setCartPrice,cartPrice,submitCart}) => {
 
   
 
@@ -10,18 +12,48 @@ export const CartBox = ({flavors,sizes,decorations,cart,setCart,setCartPrice,car
     const [cartOrders,setCartOrders] = useState(null)
     // const [cartPrice,setCartPrice] = useState(0)
 
-    // const handleDeleteOrder = (index) => {
-    //   // e.preventDefault()
-    //   fetch(`http://localhost:8000/api/order/${order}/`,{method:'DELETE'})
+    const deleteFromCart = (item) => {
+      const url = `http://localhost:8000/ddcakes/cart/${cart? cart.id:0}/`
+      const opts = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          
+        },
+        body: JSON.stringify({...cartOptions, "price": (Number(cartPrice) - Number(item.price)).toFixed(2)})
+      }
+      fetch(url, opts)
+      .then(res => res.json())
+      .then(data => {console.log(data);setCart(data)})
+    }
+
+    const handleDeleteOrder = (item) => {
+      // e.preventDefault()
+      fetch(`http://localhost:8000/ddcakes/order/${item.id}/`,{method:'DELETE'})
+      setCartPrice((Number(cartPrice) - Number(item.price)).toFixed(2))
+      deleteFromCart(item)
       
-      
-    // }
+    }
+
+    
+    const emailInfo={
+      name: guest.first_name,
+      email:guest.email
+    }
+    function sendEmail() {
+      send('service_7k9lspb','template_kq37epy',emailInfo,'f-Yj0K5W8AiskqMu1')
+    }
+    
+        
+    
+
+    
 
     const param = cart? cart.id : 0
     console.log(cart)
     useEffect(() => {
       cart &&
-        fetch(`http://localhost:8000/ddcakes/cartorders/${param}`)
+        fetch(`http://localhost:8000/ddcakes/cartorders/${param}/`)
           .then(res => res.json())
           .then(data => {
             console.log(data)
@@ -61,7 +93,7 @@ export const CartBox = ({flavors,sizes,decorations,cart,setCart,setCartPrice,car
             <p>Price: ${item.price}</p>
             
             </Card.Text>
-            <Button  variant="primary">Delete</Button>
+            <Button onClick={()=>handleDeleteOrder(item)}  variant="primary">Delete</Button>
           </Card.Body>
         </Card>
             )
@@ -69,9 +101,9 @@ export const CartBox = ({flavors,sizes,decorations,cart,setCart,setCartPrice,car
     
     </Container>
     <h5>Cart Price:${cartPrice} </h5>
-    <button onClick={()=>submitCart()}>Submit Cart</button>
+    <button className="btn btn-primary" onClick={()=>{submitCart();sendEmail()}}>Submit Cart</button>
     
-    <Link to={'/menu'}><button>Add another item</button></Link>
+    <Link to={'/menu'}><button className="btn btn-secondary">Add another item</button></Link>
 
 
     </>
