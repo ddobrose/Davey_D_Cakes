@@ -48,8 +48,6 @@ const addGuestToCart = ()=> {
     .then(res => res.json())
     .then(data => {console.log(data); setGuest(data)})
     cart && addGuestToCart()
-    
-
   }
     
     const onChange = (e) => {

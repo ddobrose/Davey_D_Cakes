@@ -34,7 +34,7 @@ export const CartBox = ({flavors,sizes,decorations,cart,setCart,setCartPrice,car
   
       
     if(!cartOrders){
-        return(<h1>LOADING</h1>)
+        return(<h1>You do not have a cart or your cart is loading.</h1>)
     }else {return (
     <>
     <div>
@@ -70,6 +70,8 @@ export const CartBox = ({flavors,sizes,decorations,cart,setCart,setCartPrice,car
     </Container>
     <h5>Cart Price:${cartPrice} </h5>
     <button onClick={()=>submitCart()}>Submit Cart</button>
+    
+    <Link to={'/menu'}><button>Add another item</button></Link>
 
 
     </>

@@ -143,7 +143,7 @@ const[guestForm, setGuestForm]= useState({
 //functions used to create,edit, and submit carts
 const cartOptions={
   guest: guest? guest.id : "",
-  price: 0,
+  price: cart? cart.price: 0,
   user:user? user.user_id : "",
   previous:false
 }
@@ -160,7 +160,7 @@ const createCart = () => {
   }
   fetch(url, opts)
   .then(res => res.json())
-  .then(data => {console.log(data);setCart(data)})
+  .then(data => {console.log(data);setCart(data);setFormState({...formState, "cart": data.id})})
   
   
 
@@ -169,7 +169,7 @@ const createCart = () => {
 
 
 const submitCart = () => {
-  const url = `http://localhost:8000/ddcakes/cart/${cart? cart.id:0}`
+  const url = `http://localhost:8000/ddcakes/cart/${cart? cart.id:0}/`
   const opts = {
     method: 'PUT',
     headers: {
