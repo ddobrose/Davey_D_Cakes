@@ -86,7 +86,6 @@ useEffect(()=>{
 
 //used to determine whether ThanksModal is showing
 const [show,setShow] = useState(false)
-const [orderAddShow,setOrderAddShow]= useState(false)
 
 
 //This is to set and track changes on the order form in OrderBox.jsx

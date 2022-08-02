@@ -15,8 +15,8 @@ export const TopNav = () => {
       <Container fluid>
         <Navbar.Brand href='/'><img src="/images/daveydcakes.png" alt="Logo" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-dark-example" />
-        <Navbar.Collapse id="navbar-dark-example">
-          <Nav className='.mr-auto'>
+        <Navbar.Collapse className='justify-content-end' id="navbar-dark-example">
+          <Nav  className=" justify-content-around">
           
             <Nav.Link href="/menu">Menu</Nav.Link>
             <Nav.Link href="/rewards">Rewards</Nav.Link>

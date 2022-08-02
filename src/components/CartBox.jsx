@@ -7,7 +7,7 @@ import { send } from '@emailjs/browser'
 export const CartBox = ({guest, show,setShow,cartOptions,flavors,sizes,decorations,cart,setCart,setCartPrice,cartPrice,submitCart}) => {
 
   
-
+  
     
     const [cartOrders,setCartOrders] = useState(null)
     // const [cartPrice,setCartPrice] = useState(0)
