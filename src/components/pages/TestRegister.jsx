@@ -1,16 +1,19 @@
-import React, { useEffect, useState} from 'react'
+import React from 'react'
 // import AuthContext from '../../context/AuthContext'
 import { Footer } from '../Footer'
 import { TopNav } from '../Navbar'
+import { GuestRegisterModal } from '../GuestRegisterModal'
 
-export const TestRegister = ({setGuest,setCart, cart,cartOptions,flavors, guest,setGuestForm, guestForm}) => {
+export const TestRegister = ({show,setShow, setGuest,setCart, cart,cartOptions,flavors, guest,setGuestForm, guestForm}) => {
   // const {user} = useContext(AuthContext)
   
-  console.log(guestForm.favorite_flavor)
+  const baseUrl = process.env.REACT_APP_IS_DEPLOYED === 'true'
+  ?'https://lit-tundra-19708.herokuapp.com/'
+  :"http://127.0.0.1:8000/"
 
 
 const addGuestToCart = ()=> {
-  const url = `http://localhost:8000/ddcakes/cart/${cart? cart.id:0}/`
+  const url = baseUrl+`ddcakes/cart/${cart? cart.id:0}/`
   const opts = {
     method: 'PUT',
     headers: {
@@ -27,7 +30,7 @@ const addGuestToCart = ()=> {
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    const url = guest?`http://localhost:8000/ddcakes/guest/${guest.id}/`:`http://localhost:8000/ddcakes/guest/`
+    const url = guest?baseUrl+`ddcakes/guest/${guest.id}/`:baseUrl+`ddcakes/guest/`
     
     const opts = !guest? {
       method: 'POST',
@@ -48,6 +51,7 @@ const addGuestToCart = ()=> {
     .then(res => res.json())
     .then(data => {console.log(data); setGuest(data)})
     cart && addGuestToCart()
+    setShow(true)
   }
     
     const onChange = (e) => {
@@ -56,6 +60,8 @@ const addGuestToCart = ()=> {
       }
   return (
     <>
+
+    {show && (<GuestRegisterModal setShow={setShow} show={show}/>)}
 
     <TopNav/>
 
@@ -78,14 +84,14 @@ const addGuestToCart = ()=> {
 
 <div>
 <label htmlFor="favorite_flavor" className="form-label mt-4">Pick a Flavor</label>
-      <select onChange={onChange}  value={guestForm.favorite_flavor} defaultValue={guest? guestForm.favorite_flavor:""} className="form-select" id="favorite_flavor">
+      <select onChange={onChange}  value={guestForm.favorite_flavor} defaultValue={guest? guestForm.favorite_flavor:"Very Vanilla"} className="form-select" id="favorite_flavor">
         {flavors.map((item)=>
         <option value={item.name}>{item.name}</option>)}
         
       </select>
 </div>
 
-<button onClick={handleSubmit}>Submit</button>
+<button className="btn btn-primary mt-4" onClick={handleSubmit}>Submit</button>
   
 </div>
 

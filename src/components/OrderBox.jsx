@@ -5,12 +5,14 @@ import React,{useEffect} from 'react'
 
 export const OrderBox = ({setQty, qty, price, setPrice, setSizePrice, setDecoPrice, sizePrice, decoPrice, setShow, show,cartOptions, cart,setCart,setChoice, setDeco,setFlav, setSize,flavors,sizes,decorations,flav,deco,size,choice,formState,setFormState,cartPrice,setCartPrice}) => {
 
-
+  const baseUrl = process.env.REACT_APP_IS_DEPLOYED === 'true'
+  ?'https://lit-tundra-19708.herokuapp.com/'
+  :"http://127.0.0.1:8000/"
 
 
 
 const addToCart = () => {
-  const url = `http://localhost:8000/ddcakes/cart/${cart? cart.id:0}/`
+  const url = baseUrl+`ddcakes/cart/${cart? cart.id:0}/`
   const opts = {
     method: 'PUT',
     headers: {
@@ -30,7 +32,7 @@ const addToCart = () => {
 
 const handleOrderSubmit = (e) => {
   e.preventDefault()
-  const url = 'http://localhost:8000/ddcakes/order/'
+  const url = baseUrl+'ddcakes/order/'
   const opts = {
     method: 'POST',
     headers: {
@@ -55,6 +57,7 @@ const handleOrderSubmit = (e) => {
     })
     setCartPrice((Number(cartPrice) + Number(price)).toFixed(2))
     addToCart()
+    setQty(1)
     setDeco('')
     setFlav('')
     setSize('')

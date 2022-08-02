@@ -6,14 +6,16 @@ import { send } from '@emailjs/browser'
 
 export const CartBox = ({guest, show,setShow,cartOptions,flavors,sizes,decorations,cart,setCart,setCartPrice,cartPrice,submitCart}) => {
 
-  
+  const baseUrl = process.env.REACT_APP_IS_DEPLOYED === 'true'
+  ?'https://lit-tundra-19708.herokuapp.com/'
+  :"http://127.0.0.1:8000/"
   
     
     const [cartOrders,setCartOrders] = useState(null)
     // const [cartPrice,setCartPrice] = useState(0)
 
     const deleteFromCart = (item) => {
-      const url = `http://localhost:8000/ddcakes/cart/${cart? cart.id:0}/`
+      const url = baseUrl+`ddcakes/cart/${cart? cart.id:0}/`
       const opts = {
         method: 'PUT',
         headers: {
@@ -29,7 +31,7 @@ export const CartBox = ({guest, show,setShow,cartOptions,flavors,sizes,decoratio
 
     const handleDeleteOrder = (item) => {
       // e.preventDefault()
-      fetch(`http://localhost:8000/ddcakes/order/${item.id}/`,{method:'DELETE'})
+      fetch(baseUrl+`ddcakes/order/${item.id}/`,{method:'DELETE'})
       setCartPrice((Number(cartPrice) - Number(item.price)).toFixed(2))
       deleteFromCart(item)
       
@@ -41,7 +43,7 @@ export const CartBox = ({guest, show,setShow,cartOptions,flavors,sizes,decoratio
       email:guest.email
     }
     function sendEmail() {
-      send('service_7k9lspb','template_kq37epy',emailInfo,'f-Yj0K5W8AiskqMu1')
+      send(process.env.EMAIL_SERVICE_ID, process.env.EMAIL_TEMPLATE_ID,emailInfo, process.env.EMAIL_KEY)
     }
     
         
@@ -53,7 +55,7 @@ export const CartBox = ({guest, show,setShow,cartOptions,flavors,sizes,decoratio
     console.log(cart)
     useEffect(() => {
       cart &&
-        fetch(`http://localhost:8000/ddcakes/cartorders/${param}/`)
+        fetch(baseUrl+`ddcakes/cartorders/${param}/`)
           .then(res => res.json())
           .then(data => {
             console.log(data)

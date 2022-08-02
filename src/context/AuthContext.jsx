@@ -4,6 +4,10 @@ import {useNavigate} from 'react-router-dom';
 
 import React from 'react'
 
+const baseUrl = process.env.REACT_APP_IS_DEPLOYED === 'true'
+  ?'https://lit-tundra-19708.herokuapp.com/'
+  :"http://127.0.0.1:8000/"
+
 const AuthContext = createContext();
 
 export default AuthContext;
@@ -24,7 +28,7 @@ export const AuthProvider = ({children}) => {
     const history = useNavigate();
 
     const loginUser = async(username,password) => {
-        const response = await fetch("http://127.0.0.1:8000/api/token/", {
+        const response = await fetch(baseUrl+"api/token/", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -50,7 +54,7 @@ export const AuthProvider = ({children}) => {
     };
 
     const registerUser = async (username,password,password2)=>{
-        const response = await fetch("http://127.0.0.1:8000/api/register/", {
+        const response = await fetch(baseUrl+"api/register/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

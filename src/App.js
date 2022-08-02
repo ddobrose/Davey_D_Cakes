@@ -87,6 +87,10 @@ useEffect(()=>{
 //used to determine whether ThanksModal is showing
 const [show,setShow] = useState(false)
 
+const baseUrl = process.env.REACT_APP_IS_DEPLOYED === 'true'
+  ?'https://lit-tundra-19708.herokuapp.com/'
+  :"http://127.0.0.1:8000/"
+
 
 //This is to set and track changes on the order form in OrderBox.jsx
 const [formState,setFormState]= useState({
@@ -109,7 +113,7 @@ const userParam = user? user.user_id : 0
 
 useEffect(() => {
   user &&
- fetch(`http://localhost:8000/ddcakes/usercart/${userParam}`)
+ fetch(baseUrl+`ddcakes/usercart/${userParam}`)
     .then(res => res.json())
     .then(data => {
       console.log(data)
@@ -121,7 +125,7 @@ useEffect(() => {
 
 useEffect(() => {
   user &&
-  fetch(`http://localhost:8000/ddcakes/userguest/${userParam}`)
+  fetch(baseUrl+`ddcakes/userguest/${userParam}`)
     .then(res => res.json())
     .then(data => {
       console.log(data)
@@ -131,7 +135,7 @@ useEffect(() => {
   first_name:data[0]? data[0].first_name : "",
   last_name: data[0]? data[0].last_name: "",
   email: data[0]? data[0].email: "",
-  favorite_flavor: data[0]? data[0].favorite_flavor:""
+  favorite_flavor: data[0]? data[0].favorite_flavor:"Very Vanilla"
       })
     })
 }, []) 
@@ -149,7 +153,7 @@ const[guestForm, setGuestForm]= useState({
   first_name:guest? guest.first_name : "",
   last_name: guest? guest.last_name: "",
   email: guest? guest.email: "",
-  favorite_flavor: guest? guest.favorite_flavor:""
+  favorite_flavor: guest? guest.favorite_flavor:"Very Vanilla"
 
 })
 
@@ -162,7 +166,7 @@ const cartOptions={
 }
 const createCart = (item,index) => {
   const priceInput = item.category==='size' ?Number(item.price) :(Number(price) + Number(item.price)).toFixed(2)
-  const url = 'http://localhost:8000/ddcakes/cart/'
+  const url = baseUrl+'ddcakes/cart/'
   const opts = {
     method: 'POST',
     headers: {
@@ -183,7 +187,7 @@ const createCart = (item,index) => {
 
 
 const submitCart = () => {
-  const url = `http://localhost:8000/ddcakes/cart/${cart? cart.id:0}/`
+  const url = baseUrl+`ddcakes/cart/${cart? cart.id:0}/`
   const opts = {
     method: 'PUT',
     headers: {
@@ -254,7 +258,7 @@ function clickSize(item,index) {
     <Route path='/login' element={<Login/>}/>
     <Route path='/menu/:id' element={<OrderForm price={price} setPrice={setPrice} qty={qty} setQty={setQty} setDecoPrice={setDecoPrice} setSizePrice={setSizePrice} sizePrice={sizePrice} decoPrice={decoPrice} show={show} setShow={setShow} cartOptions={cartOptions} setChoice={setChoice} cartPrice={cartPrice} setCartPrice={setCartPrice} cart={cart} setCart={setCart} choice={choice} formState={formState} setFormState={setFormState} setSize={setSize} setDeco={setDeco} setFlav={setFlav} flav={flav} deco={deco} size={size}  flavors={flavors} sizes={sizes} decorations={decorations} />}/>
     <Route path='/cart' element={<Cart guest={guest} show={show} setShow={setShow} cartOptions={cartOptions} submitCart={submitCart} cartPrice={cartPrice} setCartPrice={setCartPrice} cart={cart} setCart={setCart} formState={formState} setFormState={setFormState} setSize={setSize} setDeco={setDeco} setFlav={setFlav} flav={flav} deco={deco} size={size}  flavors={flavors} sizes={sizes} decorations={decorations} />}/>
-    <Route path='/testregister' element={<TestRegister setGuest={setGuest} setCart={setCart} cart={cart} cartOptions={cartOptions} setGuestForm={setGuestForm} guestForm={guestForm} guest={guest} flavors={flavors}/>}/>
+    <Route path='/testregister' element={<TestRegister show={show} setShow={setShow} setGuest={setGuest} setCart={setCart} cart={cart} cartOptions={cartOptions} setGuestForm={setGuestForm} guestForm={guestForm} guest={guest} flavors={flavors}/>}/>
     <Route path='/orderhistory' element={<OrderHistory setGuest={setGuest} setCart={setCart} cart={cart} cartOptions={cartOptions} setGuestForm={setGuestForm} guestForm={guestForm} guest={guest} flavors={flavors}/>}/>
 
     

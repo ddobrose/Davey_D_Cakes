@@ -5,8 +5,12 @@ export const PastOrder = ({index, pastOrder}) => {
 
     const [pastOrderItems,setPastOrderItems] = useState(null)
 
+    const baseUrl = process.env.REACT_APP_IS_DEPLOYED === 'true'
+  ?'https://lit-tundra-19708.herokuapp.com/'
+  :"http://127.0.0.1:8000/"
+
     useEffect(()=>{
-        fetch(`http://localhost:8000/ddcakes/cartorders/${pastOrder.id}/`)
+        fetch(baseUrl+`ddcakes/cartorders/${pastOrder.id}/`)
           .then(res => res.json())
           .then(data => {
             console.log(data)
