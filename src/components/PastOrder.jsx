@@ -19,7 +19,7 @@ export const PastOrder = ({index, pastOrder}) => {
     },[])
   return (
     <>
-       <h4>{pastOrder.id}</h4> 
+       
        <Container className='row row-cols-3 row-cols-md-2 g-4 gap-3 border border-3 mt-3 justify-content-sm-between' fluid>
         
         {pastOrderItems && pastOrderItems.map((item,index)=>{

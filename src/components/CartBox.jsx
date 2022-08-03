@@ -71,12 +71,6 @@ export const CartBox = ({guest, show,setShow,cartOptions,flavors,sizes,decoratio
         return(<h1>You do not have a cart or your cart is loading.</h1>)
     }else {return (
     <>
-    <div>
-        <p>Wanna order more cake at once?! Soon we will have carts so you can give us more money at a time, for now feel free to navigate to the home page and place another order!</p> 
-
-        <Link to={'/'}>Click here for the Home page!</Link>
-
-        </div>
     
         <Container className='row row-cols-3 row-cols-md-2 g-4 gap-3 border border-3 mt-3 justify-content-sm-between' fluid>
         
