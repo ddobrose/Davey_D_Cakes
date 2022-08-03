@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# DaveyDCakes
+An online ordering website for a bakery called DaveyDCakes
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Link
+https://daveydcakes.netlify.app/
 
-## Available Scripts
+## Description
+DaveyDCakes is a full stack ordering app for a fake bakery. It uses Django and React to save user, guest profile, cart, and order information. You can create your own custom profile with a favorite flavor, edit that profile, and start placing orders. Your orders show up in your past orders tab.
 
-In the project directory, you can run:
+## Code overview
+- The app utilizes React for the front end with a django backend.
+- For the backend it uses Django Rest Framework to store all information and JWT for authorization and authentication.
+- I utilize the Django User model as a foreign key to the custom guest model, then 2 other models for Carts and Orders. There is a boolean to determine whether a cart has been submitted.
+- The frontend uses UseContext to set up the login system and pass user information throughout the App.
+- the app uses react-bootstrap and bootswatch lux theme for styling.
 
-### `npm start`
+## Screenshots
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Home Page-
+The Home page utilizes Hero Banners for the different links on the page as well as a Navbar and footer throughout the app for navigation links. 
+![Home Page](/public/images/daveycakeshome.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Menu Page-
+The menu page utilizes Card components with choices for Flavors, decorations, and sizes of cakes. When one is clicked a function runs that fills out the custom order form on the next page with the corresponding selection and adjusts price accordingly as well.
+![Menu Page](/public/images/daveycakesmenu.png)
+![Menu Page](/public/images/daveycakesmenu2.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Order Page
+This page includes a form that is used to place custom orders to the backend server, It adjusts the form state and places the order via fetch. It also connects it to a cart automatically and redirects you to the cart page after a modal that confirms your order went through.
 
-### `npm run build`
+![Order Form](/public/images/daveycakesorder.png)
+![Order Form](/public/images/daveycakesorder2.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Register/Guest create and Login
+Register and Login forms are used for Registering and logging in a user and a form is also used to create a custom guest profile with your name, email and favorite flavor. UseContext is used to perform all necessary functions for logging in and authentication to the backend server.
+![Register](/public/images/profileeditandcreate.png)
+![Register](/public/images/registeruser.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Future goals- 
+Some of the future goals for the App include:
+- Creating a system for placing an order without being logged in. 
+- Adding a date to the cart model so that previous orders will show the date of purchase.
+- Adding a payment processor like paypal or stripe.
+- Adding Stores to the database with addresses and Google map api to find a store and set it as your home store.
+- Find a way to enact rewards points and track them on the backend to use them to go towards future purchases.
